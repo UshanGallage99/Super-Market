@@ -1,0 +1,119 @@
+DROP DATABASE SuperMarket;
+CREATE DATABASE SuperMarket;
+
+USE SuperMarket;
+
+CREATE TABLE Customer(
+	CustID VARCHAR(6) NOT NULL,
+	CustTitle VARCHAR(5) NOT NULL,
+	CustName VARCHAR(30) NOT NULL,
+	CustAddress VARCHAR(30)NOT NULL,
+	City VARCHAR(20)NOT NULL,
+	Province VARCHAR(20)NOT NULL,
+	PostalCode VARCHAR(9)NOT NULL,
+	CONSTRAINT PRIMARY KEY (CustID)
+);
+
+CREATE TABLE Orders(
+	OrderID INT(6),
+	OrderDate VARCHAR(10) NOT NULL,
+	CustID VARCHAR(6),
+	CONSTRAINT PRIMARY KEY (OrderID),
+	CONSTRAINT FOREIGN Key (CustID) REFERENCES Customer(CustID)
+);
+
+CREATE TABLE Item(
+	ItemCode VARCHAR(6) NOT NULL,
+	Discription VARCHAR(50),
+	PackSize VARCHAR(20),
+	UnitPrice DECIMAL(6,2),
+	QtyOnHand INT(5),
+	CONSTRAINT PRIMARY KEY (ItemCode)
+);
+
+CREATE TABLE OrderDetails(
+	OrderID INT(6) NOT NULL,
+	ItemCode VARCHAR(6) NOT NULL,
+	OrderQty INT (11) NOT NULL,
+	CONSTRAINT PRIMARY KEY (OrderID,ItemCode),
+	CONSTRAINT FOREIGN Key (OrderID) REFERENCES Orders(OrderID),
+	CONSTRAINT FOREIGN Key (ItemCode) REFERENCES Item(ItemCode)
+	on delete cascade on update cascade
+);
+
+desc Customer;
+desc Orders;
+desc Item;
+desc OrderDetails;
+
+//--------------------Customer------------------------------------------
+
+INSERT INTO Customer VALUES('C001','null','Danapala','Panadura','Panadura','Kaluthara',985461);
+INSERT INTO Customer VALUES('C002','null','Gunapala','Matara','Matara','Matara',135274);
+INSERT INTO Customer VALUES('C003','null','Somapala','Galle','Galle','Galle',257304);
+INSERT INTO Customer VALUES('C004','null','Siripala','Galle','Galle','Galle',342809);
+ 
+//--------------------Orders-------------------------
+
+
+INSERT INTO Orders VALUES(1,'2008-2-15','C001');
+INSERT INTO Orders VALUES(2,'2010-2-15','C002');
+INSERT INTO Orders VALUES(3,'2011-2-15','C003');
+INSERT INTO Orders VALUES(4,'2012-2-15','C004');
+INSERT INTO Orders VALUES(5,'2013-2-15','C001');
+INSERT INTO Orders VALUES(6,'2014-2-15','C002');
+INSERT INTO Orders VALUES(7,'2015-2-15','C003');
+INSERT INTO Orders VALUES(8,'2016-2-15','C004');
+ 
+ 
+
+
+//--------------------Item----------------------------------------------
+
+INSERT INTO Item VALUES('P001','Keerisamba','10Kg',105.00,3000);
+INSERT INTO Item VALUES('P002','Keerisamba','5Kg',525.00,200);
+INSERT INTO Item VALUES('P003','Keerisamba','10Kg',995.00,36);
+INSERT INTO Item VALUES('P004','Keerisamba','50Kg',4100.00,36);
+INSERT INTO Item VALUES('P005','Red Raw Rice','50Kg',60.00,6000);
+INSERT INTO Item VALUES('P006','Red Raw Rice','10Kg',560.00,300);
+INSERT INTO Item VALUES('P007','Red Raw Rice','50Kg',5230.00,80);
+INSERT INTO Item VALUES('P008','White Raw Rice','5Kg',275.00,130);
+INSERT INTO Item VALUES('P009','White Raw Rice','50Kg',2600.00,13);
+INSERT INTO Item VALUES('P010','Wattana Dhal','500g',90.00,83);
+INSERT INTO Item VALUES('P011','Wattana Dhal','1Kg',170.00,40);
+INSERT INTO Item VALUES('P012','Mysoor Dhal','500g',90.00,89);
+INSERT INTO Item VALUES('P013','Mysoor Dhal','1Kg',180.00,59);
+INSERT INTO Item VALUES('P014','Orient Green Gram','500g',118.00,39);
+INSERT INTO Item VALUES('P015','Orient Green Gram','1Kg',220.00,12);
+INSERT INTO Item VALUES('P016','Anchor F/C Milk powder','450g',220.00,93);
+INSERT INTO Item VALUES('P017','Anchor F/C Milk powder','1Kg',580.00,40);
+INSERT INTO Item VALUES('P018','Anchor N/F Milk powder','1Kg',560.00,33);
+INSERT INTO Item VALUES('P019','Milo Packet','400g',240.00,33);
+INSERT INTO Item VALUES('P020','Lipton Ceylon Tea','100g',107.00,40);
+
+
+
+ 
+
+
+//--------------------OrderDetail---------------------
+
+INSERT INTO OrderDetails(OrderID,ItemCode,OrderQty) VALUES('3','P001',3);
+INSERT INTO OrderDetails(OrderID,ItemCode,OrderQty) VALUES('3','P002',5);
+INSERT INTO OrderDetails(OrderID,ItemCode,OrderQty) VALUES('4','P003',8);
+INSERT INTO OrderDetails(OrderID,ItemCode,OrderQty) VALUES('4','P006',1);
+INSERT INTO OrderDetails(OrderID,ItemCode,OrderQty) VALUES('5','P002',4);
+INSERT INTO OrderDetails(OrderID,ItemCode,OrderQty) VALUES('5','P003',4);
+INSERT INTO OrderDetails(OrderID,ItemCode,OrderQty) VALUES('6','P008',3);
+INSERT INTO OrderDetails(OrderID,ItemCode,OrderQty) VALUES('6','P010',7);
+INSERT INTO OrderDetails(OrderID,ItemCode,OrderQty) VALUES('7','P012',3);
+INSERT INTO OrderDetails(OrderID,ItemCode,OrderQty) VALUES('7','P001',9);
+INSERT INTO OrderDetails(OrderID,ItemCode,OrderQty) VALUES('8','P004',6);
+INSERT INTO OrderDetails(OrderID,ItemCode,OrderQty) VALUES('8','P005',6);
+ 
+ 
+
+Select *from Customer;
+Select *from Orders;
+Select *from Item;
+Select *from OrderDetails;
